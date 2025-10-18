@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Portfolio.Web.Entities.UserMessage>
+
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">📬 Gelen Mesajlar</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center shadow-sm rounded-3">
+            Henüz mesaj bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive shadow-sm rounded-4">
+            <table class="table table-hover table-borderless align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 20%">Gönderen</th>
+                        <th style="width: 40%">Konu & Önizleme</th>
+                        <th class="text-center" style="width: 15%">Durum</th>
+                        <th class="text-center" style="width: 25%">Aksiyon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(m => m.UserMessageId))
+                    {
+                        <tr class="@(item.IsRead ? "text-muted" : "table-warning fw-bold")">
+                            <td>
+                                <div>@item.Name</div>
+                                <small class="text-primary">@item.Email</small>
+                            </td>
+                            <td>
+                                <div><strong>@item.Subject</strong></div>
+                                <small class="d-block text-truncate" style="max-width: 350px;">
+                                    @(item.MessageBosy.Length > 60 ? item.MessageBosy.Substring(0, 60) + "..." : item.MessageBosy)
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge rounded-pill @(item.IsRead ? "bg-success" : "bg-danger")">
+                                    @(item.IsRead ? "Okundu" : "Yeni")
+                                </span>
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <a asp-action="Details" asp-route-id="@item.UserMessageId"
+                                   class="btn btn-sm btn-info text-white me-2"
+                                   title="Mesaj Detayını Görüntüle">
+                                    <i class="bi bi-eye"></i> Detay
+                                </a>
+
+                                <form asp-action="ToggleRead" asp-route-id="@item.UserMessageId"
+                                      method="post" class="d-inline">
+                                    <button type="submit"
+                                            class="btn btn-sm @(item.IsRead ? "btn-outline-secondary" : "btn-outline-warning")"
+                                            title="@(item.IsRead ? "Okunmadı Olarak İşaretle" : "Okundu Olarak İşaretle")">
+                                        <i class="bi @(item.IsRead ? "bi-arrow-counterclockwise" : "bi-check-circle")"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

@@ -1,0 +1,38 @@
+﻿@model List<Testimonial>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 fw-bold">Referanslarım</h2>
+
+    <div class="row justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-sm border-0 h-100 text-center">
+                    <img src="@item.ImageUrl" class="card-img-top rounded-top" alt="@item.Name" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">@item.Name</h5>
+                        <p class="text-muted">@item.Title</p>
+                        <p class="card-text fst-italic">
+                            "@item.Comment"
+                        </p>
+                        <div>
+                            @for (int i = 0; i < item.Review; i++)
+                            {
+                                <i class="fa fa-star text-warning"></i>
+                            }
+                            @for (int i = item.Review; i < 5; i++)
+                            {
+                                <i class="fa fa-star text-secondary"></i>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

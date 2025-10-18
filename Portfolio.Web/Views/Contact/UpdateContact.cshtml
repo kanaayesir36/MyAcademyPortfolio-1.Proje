@@ -1,0 +1,46 @@
+﻿@model Portfolio.Web.Entities.ContactInfo
+
+@{
+    ViewData["Title"] = "İletişim Bilgisi Düzenle";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4">📍 İletişim Bilgisi Güncelle</h2>
+
+    <form asp-action="UpdateContact" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ContactInfoId" />
+
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label">Adres</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PhoneNumber" class="form-label">Telefon</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MapUrl" class="form-label">Harita Linki</label>
+            <input asp-for="MapUrl" class="form-control" />
+            <span asp-validation-for="MapUrl" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Güncelle
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Geri</a>
+    </form>
+</div>
+
+

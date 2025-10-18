@@ -1,0 +1,56 @@
+﻿@model Portfolio.Web.Entities.UserMessage
+
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header bg-primary text-white p-3">
+                    <h4 class="mb-0"><i class="bi bi-envelope-open me-2"></i>@Model.Subject</h4>
+                </div>
+
+                <div class="card-body p-4" style="background-color: #f9f9f9;">
+                    <div class="mb-3">
+                        <span class="fw-bold text-muted">Gönderen:</span>
+                        <span class="ms-2">@Model.Name</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="fw-bold text-muted">Email:</span>
+                        <span class="ms-2"><a href="mailto:@Model.Email" class="text-decoration-none text-primary">@Model.Email</a></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="fw-bold text-muted">Durum:</span>
+                        <span class="ms-2 badge @(Model.IsRead ? "bg-success" : "bg-danger")">
+                            @(Model.IsRead ? "Okundu" : "Yeni")
+                        </span>
+                    </div>
+
+                    <hr />
+
+                    <div class="p-3 rounded-3" style="background-color: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                        <p class="mb-0">@Model.MessageBosy</p>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end bg-white border-0">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i> Geri
+                    </a>
+
+                    <form asp-action="ToggleRead" asp-route-id="@Model.UserMessageId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm @(Model.IsRead ? "btn-outline-secondary" : "btn-outline-warning")">
+                            <i class="bi @(Model.IsRead ? "bi-arrow-counterclockwise" : "bi-check-circle")"></i>
+                            @(Model.IsRead ? "Okunmadı Olarak İşaretle" : "Okundu Olarak İşaretle")
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

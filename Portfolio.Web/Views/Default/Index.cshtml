@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+
+    <img src="/Kelly-1.0.0/assets/img/images.jpeg" alt="" data-aos="fade-in">
+
+    <div class="container text-start" data-aos="zoom-out" data-aos-delay="100">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1>Yesir Kanaa</h1>
+                <p>Full-Stack .Net Developer</p>
+                <a href="#about" class="btn-get-started">Hakkımda</a>
+            </div>
+        </div>
+    </div>
+
+</section><!-- /Hero Section -->
+<!-- About Section -->@await Component.InvokeAsync("_DefaultAboutComponent")
+
+<!-- /About Section -->
+<!-- Resume Section -->
+<!-- /Resume Section -->
+<!-- Skills Section -->
+@await Component.InvokeAsync("_DefaultSkillsComponent")
+<!-- /Skills Section -->
+<!-- Stats Section -->
+@await Component.InvokeAsync("_DefaultStatsComponent")
+
+<!-- /Stats Section -->
+<!-- Testimonials Section -->@await Component.InvokeAsync("_DefaultTestimonialsComponent")
+
+<!-- /Testimonials Section -->
+<!-- Portfolio Section -->  
+@await Component.InvokeAsync("_DefaultProjectsComponent")
+<!-- /Portfolio Section -->
+<!-- Contact Section -->
+@await Component.InvokeAsync("_DefaultContactComponent")
+<!-- /Contact Section -->
+
