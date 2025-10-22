@@ -10,7 +10,7 @@ namespace Portfolio.Web.ViewComponents.Default_Index
         
         public IViewComponentResult Invoke()
         {
-            var categoriesWithProjects=context.Categories.Include(c=> c.Projects).ToList ();
+            var categoriesWithProjects=context.Categories.Include(c=> c.Projects).ToList();
             return View(categoriesWithProjects);
         }
     }

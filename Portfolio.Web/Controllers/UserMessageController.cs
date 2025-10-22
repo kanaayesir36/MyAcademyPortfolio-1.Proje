@@ -29,9 +29,9 @@ namespace Portfolio.Web.Controllers
             return View(messages);
         }
 
-        
+
         [HttpPost]
-       
+
         public async Task<IActionResult> ToggleRead(int id)
         {
             var message = await _context.UserMessages.FirstOrDefaultAsync(m => m.UserMessageId == id);

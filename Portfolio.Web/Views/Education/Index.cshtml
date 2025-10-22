@@ -1,30 +1,39 @@
-﻿@model List<Portfolio.Web.Entities.Experience>
+﻿@model List<Education>
 @{
-    ViewData["Title"] = "Deneyimlerim";
+    ViewData["Title"] = "Eğitim Bilgileri";
     Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
 }
 
-<h2 class="text-3xl font-bold mb-6">Deneyimlerim</h2>
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @foreach (var item in Model)
-    {
-        <div class="border rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300 bg-white">
-            <div class="flex flex-col justify-between h-full">
-                <div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">@item.Title</h3>
-                    <p class="text-gray-700 mb-1"><strong>Şirket:</strong> @item.Company</p>
-                    <p class="text-gray-700 mb-1"><strong>Şehir:</strong> @item.City</p>
-                    <p class="text-gray-700 mb-1">
-                        <strong>Dönem:</strong>
-                        @item.StartYear - @(string.IsNullOrEmpty(item.EndYear) ? "Devam Ediyor" : item.EndYear)
-                    </p>
-                </div>
-
-                <div class="mt-4">
-                    
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Okul Adı</th>
+            <th>Bölüm</th>
+            <th>Başlangıç</th>
+            <th>Bitiş</th>
+            <th>Açıklama</th>
+            <th class="text-center" style="width:120px">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.SchoolName</td>
+                <td>@item.Department</td>
+                <td>@item.StartYear</td>
+                <td>@item.EndYear</td>
+                <td>@item.Description</td>
+                <td class="d-flex justify-content-center gap-2">
+                    <a href="/Education/DeleteEducation/@item.EducationId" class="btn btn-outline-danger">Sil</a>
+                    <a href="/Education/UpdateEducation/@item.EducationId" class="btn btn-outline-info btn-sm">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Education/CreateEducation" class="btn btn-outline-primary">Yeni Eğitim Oluştur</a>

@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Portfolio.Web.Entities.UserMessage>
-
+﻿@model List<UserMessage>
 @{
     ViewData["Title"] = "Gelen Mesajlar";
     Layout = "~/Views/AdminLayout/Layout.cshtml";
@@ -59,6 +58,7 @@
                                             title="@(item.IsRead ? "Okunmadı Olarak İşaretle" : "Okundu Olarak İşaretle")">
                                         <i class="bi @(item.IsRead ? "bi-arrow-counterclockwise" : "bi-check-circle")"></i>
                                     </button>
+                                   
                                 </form>
                             </td>
                         </tr>
@@ -67,4 +67,4 @@
             </table>
         </div>
     }
-</div>
+</div>                                 

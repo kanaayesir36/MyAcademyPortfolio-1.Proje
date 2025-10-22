@@ -1,22 +1,83 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Portfolio.Web.Context;
 using Portfolio.Web.Entities;
+using System.Linq;
 
 namespace Portfolio.Web.Controllers
 {
     public class EducationController : Controller
     {
+        private readonly PortfolioContext _context;
+
+        public EducationController(PortfolioContext context)
+        {
+            _context = context;
+        }
+
+        // Listeleme
         public IActionResult Index()
         {
-            // Experience entity kullanılarak dummy veri gönderiliyor
-            var experiences = new List<Experience>
-            {
-                new Experience { ExperienceId = 1, Title = "Yazılım Geliştirici", Company = "ABC Teknoloji", City = "İstanbul", StartYear = 2022, EndYear = "2025" },
-                new Experience { ExperienceId = 2, Title = "Stajyer Mühendis", Company = "XYZ Yazılım", City = "Ankara", StartYear = 2021, EndYear = "2022" },
-                new Experience { ExperienceId = 3, Title = "Freelance Web Developer", Company = "Serbest", City = "Online", StartYear = 2023, EndYear = null }
-            };
+            var items = _context.Educations.ToList();
+            return View(items);
+        }
 
-            return View(experiences); // Model null olmasın
+        // Güncelleme GET
+        public IActionResult UpdateEducation(int id)
+        {
+            var item = _context.Educations.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return View(item);
+        }
+
+        // Güncelleme POST
+        [HttpPost]
+        public IActionResult UpdateEducation(Education education)
+        {
+            if (education == null)
+            {
+                return BadRequest();
+            }
+
+            _context.Update(education);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // Oluşturma GET
+        public IActionResult CreateEducation()
+        {
+            return View();
+        }
+
+        // Oluşturma POST
+        [HttpPost]
+        public IActionResult CreateEducation(Education education)
+        {
+            if (education == null)
+            {
+                return BadRequest();
+            }
+
+            _context.Add(education);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // Silme
+        public IActionResult DeleteEducation(int id)
+        {
+            var item = _context.Educations.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(item);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
